@@ -1,0 +1,1 @@
+ip:127.0.0.1;database_name:db_casa;port:8081;login:hiago;password:91827364Hi
