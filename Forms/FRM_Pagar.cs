@@ -18,8 +18,7 @@ namespace ContasRep
         {
             InitializeComponent();
             Parametros();
-            CarregarDatas();
-            CarregarMoradores();
+            TelaInicial();
         }
 
         private static FRM_Pagar instance;
@@ -39,6 +38,26 @@ namespace ContasRep
             this.Left = 0;
             this.Width = System.Windows.Forms.Screen.PrimaryScreen.Bounds.Width;
             this.Height = 750;
+        }
+
+        public void TelaInicial()
+        {
+            cmbAno.Items.Clear();
+            cmbMes.Items.Clear();
+            cmbMoradores.Items.Clear();
+            CarregarMoradores();
+            CarregarDatas();
+            lstGeral.Items.Clear();
+            lstIndividual.Items.Clear();
+            lstGeral.Visible = false;
+            lstIndividual.Visible = true;
+            lstContas.Items.Clear();
+            btnCancel.Visible = false;
+            txtDescription.Text = "Contas que o morador irá pagar:";
+            cmbAno.Enabled = true;
+            cmbMes.Enabled = true;
+            cmbMoradores.Enabled = true;
+            ckbSelectAll.Visible = false;
         }
 
         public void CarregarDatas()
@@ -62,30 +81,87 @@ namespace ContasRep
                     cmbAno.Items.Add(sql_dr["ano"].ToString());
                 }
             }
+            i = 1;
+            do
+            {
+                if (i < 10)
+                {
+                    cmbMes.Items.Add("0" + (i++.ToString()));
+                }
+                else
+                {
+                    cmbMes.Items.Add(i++.ToString());
+                }
+            } while (i <= 12);
         }
 
         public void CarregarValores()
         {
-            string filtro = "";
-            double quantia;
             clsMoradores obj_moradores = new clsMoradores();
-            MySqlDataReader sql_dr;
             clsData objData = new clsData();
             int idData = objData.GetIdByData(Convert.ToInt32(cmbMes.Text), Convert.ToInt32(cmbAno.Text));
-            if (idData != 0)
+            if (idData == 0)
             {
-                filtro = "where id_data = " + idData.ToString();
-                sql_dr = objData.GetDataById(idData);
-                if (sql_dr.Read())
-                {
-                    //Buscando quantia total
-                    quantia = Convert.ToDouble(sql_dr["quantia_total"]);
-                    txtTotal.Text = "R$" + Math.Round(quantia, 2).ToString();
-                }
+                MessageBox.Show("Data não encontrada!", "Tente novamente");
+            }
+        }
+
+        public void Carregar(object sender, EventArgs e)
+        {
+            CarregarListaIndividual();
+            ckbSelectAll.Visible = true;
+        }
+
+        public void CarregarListaIndividual()
+        {
+            cmbAno.Enabled = false;
+            cmbMes.Enabled = false;
+            if (Equals(cmbAno.Text, "") || Equals(cmbMes.Text, ""))
+            {
+                MessageBox.Show("Por favor selecione uma data válida para realizar a pesquisa!", "Atenção", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                cmbMoradores.SelectedItem = -1;
+                cmbMoradores.Text = "";
             }
             else
             {
-                MessageBox.Show("Data não encontrada!", "Tente novamente");
+                btnCancel.Visible = true;
+                txtDescription.Text = "Contas que " + cmbMoradores.Text + " irá pagar:";
+                lstIndividual.Items.Clear();
+                string filtro = "";
+                clsContas objContas = new clsContas();
+                MySqlDataReader sql_dr;
+                clsData objData = new clsData();
+                int idData = objData.GetIdByData(Convert.ToInt32(cmbMes.Text), Convert.ToInt32(cmbAno.Text)), idConta;
+                if (idData != 0)
+                {
+                    filtro = "where id_data = " + idData.ToString();
+                    sql_dr = objContas.GetContasByFiltro(filtro);
+                    int count = 0;
+                    while (sql_dr.Read())
+                    {
+                        //Jogando os dados no list view
+                        ListViewItem instancia_lista = new ListViewItem(sql_dr["nome_conta"].ToString());
+                        instancia_lista.SubItems.Add(sql_dr["valor_conta"].ToString());
+                        lstIndividual.Items.Add(instancia_lista);
+                        idConta = objContas.GetId(sql_dr["nome_conta"].ToString());
+                        count++;
+                    }
+                    if (lstContas.Items.Count != lstIndividual.Items.Count)
+                    {
+                        sql_dr.Close();
+                        sql_dr = objContas.GetContasByFiltro(filtro);
+                        while (sql_dr.Read())
+                        {
+                            ListViewItem instancia2 = new ListViewItem(sql_dr["nome_conta"].ToString());
+                            instancia2.SubItems.Add("0");
+                            lstContas.Items.Add(instancia2);
+                        }
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Data não encontrada!", "Tente novamente");
+                }
             }
         }
 
@@ -112,6 +188,149 @@ namespace ContasRep
                 if (Convert.ToBoolean(sql_dr["ativo"]))
                 {
                     cmbMoradores.Items.Add(sql_dr["nome"].ToString());
+                }
+            }
+        }
+
+        public void SalvarMorador(string name)
+        {
+            int cont = 0, cont2 = 0;
+            ListViewItem item = new ListViewItem(cmbMoradores.Text);
+            string contas = "";
+            //ListViewItem itemGeral = new ListViewItem();
+            while (cont < lstIndividual.Items.Count)
+            {
+                if (lstIndividual.Items[cont].Checked)
+                {
+                    while (cont2 < lstContas.Items.Count)
+                    {
+                        if (Equals(lstContas.Items[cont2].Text, lstIndividual.Items[cont].Text))
+                        {
+                            if (Equals(lstContas.Items[cont2].SubItems[1].Text, "0"))
+                            {
+                                lstContas.Items[cont2].SubItems[1].Text = "1";
+                            }
+                            else
+                            {
+                                lstContas.Items[cont2].SubItems[1].Text = (Convert.ToInt32(lstContas.Items[cont2].SubItems[1].Text) + 1).ToString();
+                            }
+                        }
+                        cont2++;
+                    }
+                    cont2 = 0;
+                    if(!Equals(contas, ""))
+                    {
+                        contas += "," + lstIndividual.Items[cont].Text;
+                    }
+                    else
+                    {
+                        contas += lstIndividual.Items[cont].Text;
+                    }
+                }
+                cont++;
+            }
+            item.SubItems.Add(contas);
+            lstGeral.Items.Add(item);
+            cmbMoradores.Items.Remove(cmbMoradores.Text);
+            lstIndividual.Items.Clear();
+        }
+
+        public void Finalizar()
+        {
+            int i = 0, j = 0, k = 0;
+            clsContas obj_contas = new clsContas();
+            MySqlDataReader sql_dr;
+            while (i < lstGeral.Items.Count)
+            {
+                var array = lstGeral.Items[i].SubItems[1].Text.Split(',');
+                double valor = 0;
+                do{
+                    int id = obj_contas.GetId(array[j].ToString());
+                    sql_dr = obj_contas.GetContasByFiltro("where id_conta = " + id);
+                    if (sql_dr.Read())
+                    {
+                        int quantas = 0;
+                        while(k < lstContas.Items.Count)
+                        {
+                            if(Equals(lstContas.Items[k].Text, array[j].ToString()))
+                            {
+                                quantas = int.Parse(lstContas.Items[k].SubItems[1].Text);
+                            }
+                            k++;
+                        }
+                        k = 0;
+                        valor += Math.Round(float.Parse(sql_dr["valor_conta"].ToString()) / quantas,2);
+                    }
+                    j++;
+                }while(j < array.Length);
+                j = 0;
+                ListViewItem item = new ListViewItem(lstGeral.Items[i].SubItems[0].Text);
+                item.SubItems.Add("R$" + valor.ToString());
+                lstGeral.Items[i] = item;
+                i++;
+            }
+            ckbSelectAll.Checked = false;
+        }
+
+        private void btnSalvar_Click(object sender, EventArgs e)
+        {
+            if (Equals(btnSalvar.Text, "Encerrar"))
+            {
+                btnSalvar.Text = "Salvar";
+                TelaInicial();
+            }
+            else if (Equals(btnSalvar.Text, "Salvar") && !Equals(cmbMoradores.Text, ""))
+            {
+                if (lstIndividual.CheckedItems.Count == 0)
+                {
+                    DialogResult result;
+                    result = MessageBox.Show("Tem certeza que deseja salvar o morador sem nenhuma despesa?", "Atenção", MessageBoxButtons.YesNo);
+                    if (result == System.Windows.Forms.DialogResult.Yes)
+                    {
+                        SalvarMorador(cmbMoradores.Text);
+                    }
+                }
+                else
+                {
+                    SalvarMorador(cmbMoradores.Text);
+                }
+                if (cmbMoradores.Items.Count == 0)
+                {
+                    Finalizar();
+                    lstIndividual.Visible = false;
+                    lstGeral.Visible = true;
+                    cmbMoradores.Enabled = false;
+                    btnSalvar.Text = "Encerrar";
+                }
+            }
+            else
+            {
+                MessageBox.Show("Selecione um morador primeiro!", "Atenção", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            }
+        }
+
+        private void Validar(object sender, EventArgs e)
+        {
+            if (!Equals(cmbAno.Text, "") && !Equals(cmbMes.Text, "") && !Equals(cmbMoradores.Text, ""))
+            {
+                CarregarListaIndividual();
+            }
+        }
+
+        private void SelecionarTudo(object sender, EventArgs e)
+        {
+            if (ckbSelectAll.Checked)
+            {
+                for (int i = 0; i < lstIndividual.Items.Count; i++)
+                {
+                    lstIndividual.Items[i].Checked = true;
+                }
+            }
+            else
+            {
+                for (int i = 0; i < lstIndividual.Items.Count; i++)
+                {
+                    lstIndividual.Items[i].Checked = false;
                 }
             }
         }
