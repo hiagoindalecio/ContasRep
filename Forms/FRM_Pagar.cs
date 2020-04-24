@@ -143,7 +143,7 @@ namespace ContasRep
                         ListViewItem instancia_lista = new ListViewItem(sql_dr["nome_conta"].ToString());
                         instancia_lista.SubItems.Add(sql_dr["valor_conta"].ToString());
                         lstIndividual.Items.Add(instancia_lista);
-                        idConta = objContas.GetId(sql_dr["nome_conta"].ToString());
+                        idConta = int.Parse(sql_dr["id_conta"].ToString());
                         count++;
                     }
                     if (lstContas.Items.Count != lstIndividual.Items.Count)
@@ -153,6 +153,7 @@ namespace ContasRep
                         while (sql_dr.Read())
                         {
                             ListViewItem instancia2 = new ListViewItem(sql_dr["nome_conta"].ToString());
+                            instancia2.SubItems.Add("R$" + double.Parse(sql_dr["valor_conta"].ToString()));
                             instancia2.SubItems.Add("0");
                             lstContas.Items.Add(instancia2);
                         }
@@ -206,13 +207,13 @@ namespace ContasRep
                     {
                         if (Equals(lstContas.Items[cont2].Text, lstIndividual.Items[cont].Text))
                         {
-                            if (Equals(lstContas.Items[cont2].SubItems[1].Text, "0"))
+                            if (Equals(lstContas.Items[cont2].SubItems[2].Text, "0"))
                             {
-                                lstContas.Items[cont2].SubItems[1].Text = "1";
+                                lstContas.Items[cont2].SubItems[2].Text = "1";
                             }
                             else
                             {
-                                lstContas.Items[cont2].SubItems[1].Text = (Convert.ToInt32(lstContas.Items[cont2].SubItems[1].Text) + 1).ToString();
+                                lstContas.Items[cont2].SubItems[2].Text = (Convert.ToInt32(lstContas.Items[cont2].SubItems[2].Text) + 1).ToString();
                             }
                         }
                         cont2++;
@@ -220,11 +221,27 @@ namespace ContasRep
                     cont2 = 0;
                     if(!Equals(contas, ""))
                     {
-                        contas += "," + lstIndividual.Items[cont].Text;
+                        for (int i = 0; i < lstContas.Items.Count; i++)
+                        {
+                            if (Equals(lstIndividual.Items[cont].Text, lstContas.Items[i].Text))
+                            {
+                                contas += "|" + lstIndividual.Items[cont].Text;
+                                var valor = lstContas.Items[i].SubItems[1].Text.Split('$');
+                                contas += "|" + valor[1];
+                            }
+                        }
                     }
                     else
                     {
-                        contas += lstIndividual.Items[cont].Text;
+                        for (int i = 0; i < lstContas.Items.Count; i++)
+                        {
+                            if (Equals(lstIndividual.Items[cont].Text, lstContas.Items[i].Text))
+                            {
+                                contas += lstIndividual.Items[cont].Text;
+                                var valor = lstContas.Items[i].SubItems[1].Text.Split('$');
+                                contas += "|" + valor[1];
+                            }
+                        }
                     }
                 }
                 cont++;
@@ -242,10 +259,12 @@ namespace ContasRep
             MySqlDataReader sql_dr;
             while (i < lstGeral.Items.Count)
             {
-                var array = lstGeral.Items[i].SubItems[1].Text.Split(',');
+                var array = lstGeral.Items[i].SubItems[1].Text.Split('|');
+                //for ()
                 double valor = 0;
                 do{
-                    int id = obj_contas.GetId(array[j].ToString());
+                    //array[j + 1] = array[j + 1].Replace(',', '.');
+                    int id = obj_contas.GetId(array[j].ToString(), array[j+1].ToString());
                     sql_dr = obj_contas.GetContasByFiltro("where id_conta = " + id);
                     if (sql_dr.Read())
                     {
@@ -254,14 +273,14 @@ namespace ContasRep
                         {
                             if(Equals(lstContas.Items[k].Text, array[j].ToString()))
                             {
-                                quantas = int.Parse(lstContas.Items[k].SubItems[1].Text);
+                                quantas = int.Parse(lstContas.Items[k].SubItems[2].Text);
                             }
                             k++;
                         }
                         k = 0;
-                        valor += Math.Round(float.Parse(sql_dr["valor_conta"].ToString()) / quantas,2);
+                        valor += Math.Round((float.Parse(sql_dr["valor_conta"].ToString()) / quantas),2);
                     }
-                    j++;
+                    j+=2;
                 }while(j < array.Length);
                 j = 0;
                 ListViewItem item = new ListViewItem(lstGeral.Items[i].SubItems[0].Text);
@@ -301,12 +320,14 @@ namespace ContasRep
                     lstGeral.Visible = true;
                     cmbMoradores.Enabled = false;
                     btnSalvar.Text = "Encerrar";
+                    ckbSelectAll.Visible = false;
                 }
             }
             else
             {
                 MessageBox.Show("Selecione um morador primeiro!", "Atenção", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             }
+            ckbSelectAll.Checked = false;
         }
 
         private void Validar(object sender, EventArgs e)

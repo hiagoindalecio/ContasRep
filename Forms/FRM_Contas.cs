@@ -149,7 +149,7 @@ namespace ContasRep
             if (!Equals(contaSelecionada, "0"))
             {
                 clsContas objContas = new clsContas();
-                objContas.Id_Conta = objContas.GetId(lstContas.SelectedItems[0].Text);
+                //objContas.Id_Conta = objContas.GetId(lstContas.SelectedItems[0].Text);
                 string valorReal = lstContas.SelectedItems[0].SubItems[1].Text.Replace(',', '.');
                 objContas.Valor_Conta = (valorReal);
                 clsData objData = new clsData();

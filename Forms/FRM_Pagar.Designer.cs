@@ -29,10 +29,11 @@
         private void InitializeComponent()
         {
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.ckbSelectAll = new System.Windows.Forms.CheckBox();
             this.label4 = new System.Windows.Forms.Label();
             this.lstContas = new System.Windows.Forms.ListView();
             this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.btnSalvar = new System.Windows.Forms.Button();
             this.btnCancel = new System.Windows.Forms.Button();
             this.lstIndividual = new System.Windows.Forms.ListView();
@@ -49,7 +50,7 @@
             this.clnNome = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.clnValor = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.label1 = new System.Windows.Forms.Label();
-            this.ckbSelectAll = new System.Windows.Forms.CheckBox();
+            this.columnHeader4 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -80,6 +81,17 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Selecionar Mês";
             // 
+            // ckbSelectAll
+            // 
+            this.ckbSelectAll.AutoSize = true;
+            this.ckbSelectAll.Location = new System.Drawing.Point(605, 96);
+            this.ckbSelectAll.Name = "ckbSelectAll";
+            this.ckbSelectAll.Size = new System.Drawing.Size(146, 17);
+            this.ckbSelectAll.TabIndex = 61;
+            this.ckbSelectAll.Text = "Selecionar Tudo";
+            this.ckbSelectAll.UseVisualStyleBackColor = true;
+            this.ckbSelectAll.CheckedChanged += new System.EventHandler(this.SelecionarTudo);
+            // 
             // label4
             // 
             this.label4.AutoSize = true;
@@ -95,7 +107,8 @@
             // 
             this.lstContas.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.columnHeader1,
-            this.columnHeader2});
+            this.columnHeader3,
+            this.columnHeader4});
             this.lstContas.Font = new System.Drawing.Font("MS Gothic", 12F);
             this.lstContas.Location = new System.Drawing.Point(755, 96);
             this.lstContas.Name = "lstContas";
@@ -107,12 +120,12 @@
             // columnHeader1
             // 
             this.columnHeader1.Text = "Contas";
-            this.columnHeader1.Width = 185;
+            this.columnHeader1.Width = 150;
             // 
-            // columnHeader2
+            // columnHeader3
             // 
-            this.columnHeader2.Text = "Total Pagantes";
-            this.columnHeader2.Width = 203;
+            this.columnHeader3.Text = "Valor";
+            this.columnHeader3.Width = 114;
             // 
             // btnSalvar
             // 
@@ -284,16 +297,10 @@
             this.label1.TabIndex = 47;
             this.label1.Text = "Pagar";
             // 
-            // ckbSelectAll
+            // columnHeader4
             // 
-            this.ckbSelectAll.AutoSize = true;
-            this.ckbSelectAll.Location = new System.Drawing.Point(603, 96);
-            this.ckbSelectAll.Name = "ckbSelectAll";
-            this.ckbSelectAll.Size = new System.Drawing.Size(146, 17);
-            this.ckbSelectAll.TabIndex = 61;
-            this.ckbSelectAll.Text = "Selecionar Tudo";
-            this.ckbSelectAll.UseVisualStyleBackColor = true;
-            this.ckbSelectAll.CheckedChanged += new System.EventHandler(this.SelecionarTudo);
+            this.columnHeader4.Text = "Total Pagantes";
+            this.columnHeader4.Width = 124;
             // 
             // FRM_Pagar
             // 
@@ -338,7 +345,8 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.ListView lstContas;
         internal System.Windows.Forms.ColumnHeader columnHeader1;
-        internal System.Windows.Forms.ColumnHeader columnHeader2;
         private System.Windows.Forms.CheckBox ckbSelectAll;
+        private System.Windows.Forms.ColumnHeader columnHeader3;
+        private System.Windows.Forms.ColumnHeader columnHeader4;
     }
 }

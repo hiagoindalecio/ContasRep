@@ -48,13 +48,14 @@ namespace ContasRep.Classes
             return sql_dr;
         }
 
-        public int GetId(string name)
+        public int GetId(string name, string valor)
         {
             int id = 0;
             clsConexao instancia_cnx = new clsConexao();
             MySqlCommand sql_cmd = new MySqlCommand();
             sql_cmd.CommandType = CommandType.Text;
-            string sql_query = "SELECT id_conta FROM tb_contas where nome_conta = '" + name + "'";
+            valor = valor.Replace(',', '.');
+            string sql_query = "SELECT id_conta FROM tb_contas where nome_conta = '" + name + "' and valor_conta = " + valor;
             sql_cmd.CommandText = sql_query;
             MySqlDataReader sql_dr = instancia_cnx.selecionar(sql_cmd);
             if (sql_dr.Read())
