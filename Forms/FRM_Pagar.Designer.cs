@@ -34,6 +34,7 @@
             this.lstContas = new System.Windows.Forms.ListView();
             this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader4 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.btnSalvar = new System.Windows.Forms.Button();
             this.btnCancel = new System.Windows.Forms.Button();
             this.lstIndividual = new System.Windows.Forms.ListView();
@@ -50,7 +51,6 @@
             this.clnNome = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.clnValor = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.label1 = new System.Windows.Forms.Label();
-            this.columnHeader4 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -127,6 +127,11 @@
             this.columnHeader3.Text = "Valor";
             this.columnHeader3.Width = 114;
             // 
+            // columnHeader4
+            // 
+            this.columnHeader4.Text = "Total Pagantes";
+            this.columnHeader4.Width = 124;
+            // 
             // btnSalvar
             // 
             this.btnSalvar.Location = new System.Drawing.Point(1039, 57);
@@ -145,6 +150,7 @@
             this.btnCancel.TabIndex = 57;
             this.btnCancel.Text = "Cancelar";
             this.btnCancel.UseVisualStyleBackColor = true;
+            this.btnCancel.Click += new System.EventHandler(this.Cancelar);
             // 
             // lstIndividual
             // 
@@ -296,11 +302,6 @@
             this.label1.Size = new System.Drawing.Size(70, 24);
             this.label1.TabIndex = 47;
             this.label1.Text = "Pagar";
-            // 
-            // columnHeader4
-            // 
-            this.columnHeader4.Text = "Total Pagantes";
-            this.columnHeader4.Width = 124;
             // 
             // FRM_Pagar
             // 

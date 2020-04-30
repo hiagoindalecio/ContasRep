@@ -198,7 +198,6 @@ namespace ContasRep
             int cont = 0, cont2 = 0;
             ListViewItem item = new ListViewItem(cmbMoradores.Text);
             string contas = "";
-            //ListViewItem itemGeral = new ListViewItem();
             while (cont < lstIndividual.Items.Count)
             {
                 if (lstIndividual.Items[cont].Checked)
@@ -207,14 +206,7 @@ namespace ContasRep
                     {
                         if (Equals(lstContas.Items[cont2].Text, lstIndividual.Items[cont].Text))
                         {
-                            if (Equals(lstContas.Items[cont2].SubItems[2].Text, "0"))
-                            {
-                                lstContas.Items[cont2].SubItems[2].Text = "1";
-                            }
-                            else
-                            {
-                                lstContas.Items[cont2].SubItems[2].Text = (Convert.ToInt32(lstContas.Items[cont2].SubItems[2].Text) + 1).ToString();
-                            }
+                            lstContas.Items[cont2].SubItems[2].Text = (Convert.ToInt32(lstContas.Items[cont2].SubItems[2].Text) + 1).ToString();
                         }
                         cont2++;
                     }
@@ -226,8 +218,6 @@ namespace ContasRep
                             if (Equals(lstIndividual.Items[cont].Text, lstContas.Items[i].Text))
                             {
                                 contas += "|" + lstIndividual.Items[cont].Text;
-                                var valor = lstContas.Items[i].SubItems[1].Text.Split('$');
-                                contas += "|" + valor[1];
                             }
                         }
                     }
@@ -238,8 +228,6 @@ namespace ContasRep
                             if (Equals(lstIndividual.Items[cont].Text, lstContas.Items[i].Text))
                             {
                                 contas += lstIndividual.Items[cont].Text;
-                                var valor = lstContas.Items[i].SubItems[1].Text.Split('$');
-                                contas += "|" + valor[1];
                             }
                         }
                     }
@@ -252,7 +240,7 @@ namespace ContasRep
             lstIndividual.Items.Clear();
         }
 
-        public void Finalizar()
+        /*public void Finalizar()
         {
             int i = 0, j = 0, k = 0;
             clsContas obj_contas = new clsContas();
@@ -289,12 +277,52 @@ namespace ContasRep
                 i++;
             }
             ckbSelectAll.Checked = false;
+        }*/
+
+        public void AlterarListaContas()
+        {
+            for (int y = 0; y < lstContas.Items.Count; y++)
+            {
+                var array = lstContas.Items[y].SubItems[1].Text.Split('$');
+                double valor = double.Parse(array[1]);
+                int pagantes = int.Parse(lstContas.Items[y].SubItems[2].Text);
+                ListViewItem item = new ListViewItem(lstContas.Items[y].Text);
+                item.SubItems.Add("R$" + (Math.Round(valor / pagantes,2)).ToString());
+                item.SubItems.Add(lstContas.Items[y].SubItems[2].Text);
+                lstContas.Items[y] = item;
+            }
+        }
+
+        public void Finalizar()
+        {
+            AlterarListaContas();
+            double total = 0;
+            for (int i = 0; i < lstGeral.Items.Count; i++)
+            {
+                var array = lstGeral.Items[i].SubItems[1].Text.Split('|');
+                for(int j = 0; j < array.Length; j++)
+                {
+                    for(int y = 0; y< lstContas.Items.Count; y++)
+                    {
+                        if(Equals(array[j], lstContas.Items[y].Text))
+                        {
+                            var valor = lstContas.Items[y].SubItems[1].Text.Split('$');
+                            total += double.Parse(valor[1]);
+                        }
+                    }
+                }
+                ListViewItem item = new ListViewItem(lstGeral.Items[i].Text);
+                item.SubItems.Add("R$" + total.ToString());
+                lstGeral.Items[i] = item;
+                total = 0;
+            }
         }
 
         private void btnSalvar_Click(object sender, EventArgs e)
         {
             if (Equals(btnSalvar.Text, "Encerrar"))
             {
+                EnviarDados();
                 btnSalvar.Text = "Salvar";
                 TelaInicial();
             }
@@ -330,6 +358,34 @@ namespace ContasRep
             ckbSelectAll.Checked = false;
         }
 
+        private void EnviarDados()
+        {
+            double total_pagamentos = 0;
+            clsMoradores obj_moradores = new clsMoradores();
+            clsData obj_data = new clsData();
+            clsPagamentos obj_pagamentos = new clsPagamentos();
+            obj_pagamentos.Id_Data = obj_data.GetIdByData(Convert.ToInt32(cmbMes.Text), Convert.ToInt32(cmbAno.Text));
+            for (int i = 0; i < lstGeral.Items.Count; i++)
+            {
+                MySqlDataReader sqldr = obj_moradores.GetMoradorByName(lstGeral.Items[i].Text);
+                sqldr.Read();
+                obj_pagamentos.Id_Morador = int.Parse(sqldr["id_morador"].ToString());
+                var valor = lstGeral.Items[i].SubItems[1].Text.Split('$');
+                obj_pagamentos.Valor_Pago = double.Parse(valor[1]);
+                total_pagamentos += obj_pagamentos.Valor_Pago;
+                if (i == lstGeral.Items.Count - 1)
+                {
+                    obj_data.Id_data = obj_pagamentos.Id_Data;
+                    MessageBox.Show(obj_pagamentos.Pagar() + obj_data.AddPagamento(total_pagamentos));
+                }
+                else
+                {
+                    obj_pagamentos.Pagar();
+                }
+            }
+            
+        }
+
         private void Validar(object sender, EventArgs e)
         {
             if (!Equals(cmbAno.Text, "") && !Equals(cmbMes.Text, "") && !Equals(cmbMoradores.Text, ""))
@@ -354,6 +410,11 @@ namespace ContasRep
                     lstIndividual.Items[i].Checked = false;
                 }
             }
+        }
+
+        private void Cancelar(object sender, EventArgs e)
+        {
+            TelaInicial();
         }
     }
 }

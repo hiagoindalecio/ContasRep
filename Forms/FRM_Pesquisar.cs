@@ -92,7 +92,7 @@ namespace ContasRep
                     txtIndividual.Text = "R$" + Math.Round((quantia / quantosMoradores),2).ToString();
                     quantia = 0;
                     quantia = Convert.ToDouble(sql_dr["quantia_recebida"]);
-                    txtRecebido.Text = "R$" + quantia.ToString();
+                    txtRecebido.Text = "R$" + Math.Round(quantia,2);
 
                 }
             }

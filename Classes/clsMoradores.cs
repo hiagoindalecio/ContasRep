@@ -110,5 +110,16 @@ namespace ContasRep.Classes
             MySqlDataReader sql_dr = instancia_cnx.selecionar(sql_cmd);
             return sql_dr;
         }
+
+        public MySqlDataReader GetMoradorByName(string name)
+        {
+            clsConexao instancia_cnx = new clsConexao();
+            MySqlCommand sql_cmd = new MySqlCommand();
+            sql_cmd.CommandType = CommandType.Text;
+            string sql_query = "SELECT id_morador, nome, ativo FROM tb_moradores where nome = '" + name + "'";
+            sql_cmd.CommandText = sql_query;
+            MySqlDataReader sql_dr = instancia_cnx.selecionar(sql_cmd);
+            return sql_dr;
+        }
     }
 }

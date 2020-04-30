@@ -157,5 +157,23 @@ namespace ContasRep.Classes
             }
             return ds_msg;
         }
+
+        public string AddPagamento(double quantia_recebida)
+        {
+            clsConexao instancia_conexao = new clsConexao();
+            try
+            {
+                var valor = quantia_recebida.ToString().Replace(',', '.');
+                string query = "update tb_data set quantia_recebida = " + valor + " where id_data = " + Id_data;
+                MySqlCommand sql_cmd = new MySqlCommand(query);
+                instancia_conexao.CRUD(sql_cmd);
+                ds_msg = "Pagamento registrado com sucesso na data selecionada.";
+            }
+            catch
+            {
+                ds_msg = "Erro ao registrar pagamento na data selecionada.";
+            }
+            return ds_msg;
+        }
     }
 }
