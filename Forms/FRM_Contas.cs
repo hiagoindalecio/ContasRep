@@ -149,11 +149,8 @@ namespace ContasRep
             if (!Equals(contaSelecionada, "0"))
             {
                 clsContas objContas = new clsContas();
-                //objContas.Id_Conta = objContas.GetId(lstContas.SelectedItems[0].Text);
                 string valorReal = lstContas.SelectedItems[0].SubItems[1].Text.Replace(',', '.');
                 objContas.Valor_Conta = (valorReal);
-                clsData objData = new clsData();
-                objData.RemoveConta(float.Parse(valorReal), objData.GetIdByData(Convert.ToInt32(cmbMes.Text), Convert.ToInt32(cmbAno.Text)));
                 MessageBox.Show(objContas.delete());
                 CarregarLista();
             }

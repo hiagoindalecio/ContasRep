@@ -52,7 +52,7 @@ namespace ContasRep.Classes
             clsConexao instancia_cnx = new clsConexao();
             MySqlCommand sql_cmd = new MySqlCommand();
             sql_cmd.CommandType = CommandType.Text;
-            string sql_query = "SELECT id_data, mes, ano, quantia_total, quantia_Recebida FROM tb_data where id_data = " + id.ToString();
+            string sql_query = "SELECT id_data, mes, ano, quantia_Recebida FROM tb_data where id_data = " + id.ToString();
             sql_cmd.CommandText = sql_query;
             MySqlDataReader sql_dr = instancia_cnx.selecionar(sql_cmd);
             return sql_dr;
@@ -64,7 +64,7 @@ namespace ContasRep.Classes
             clsConexao instancia_cnx = new clsConexao();
             MySqlCommand sql_cmd = new MySqlCommand();
             sql_cmd.CommandType = CommandType.Text;
-            string sql_query = "SELECT id_data, mes, ano, quantia_total, quantia_Recebida FROM tb_data where mes = " + mes.ToString() + " and ano = " + ano.ToString();
+            string sql_query = "SELECT id_data, mes, ano, quantia_Recebida FROM tb_data where mes = " + mes.ToString() + " and ano = " + ano.ToString();
             sql_cmd.CommandText = sql_query;
             MySqlDataReader sql_dr = instancia_cnx.selecionar(sql_cmd);
             if (sql_dr.Read())
@@ -79,13 +79,13 @@ namespace ContasRep.Classes
             clsConexao instancia_cnx = new clsConexao();
             MySqlCommand sql_cmd = new MySqlCommand();
             sql_cmd.CommandType = CommandType.Text;
-            string sql_query = "SELECT id_data, mes, ano, quantia_total, quantia_Recebida FROM tb_data";
+            string sql_query = "SELECT id_data, mes, ano, quantia_Recebida FROM tb_data";
             sql_cmd.CommandText = sql_query;
             MySqlDataReader sql_dr = instancia_cnx.selecionar(sql_cmd);
             return sql_dr;
         }
 
-        public void AddConta(float valor, int idData)
+        /*public void AddConta(float valor, int idData)
         {
             float quantia_total;
             clsConexao instancia_conexao = new clsConexao();
@@ -100,24 +100,7 @@ namespace ContasRep.Classes
                 instancia_conexao.CRUD(sql_cmd);
             }
             
-        }
-
-        public void RemoveConta(float valor, int idData)
-        {
-            float quantia_total;
-            clsConexao instancia_conexao = new clsConexao();
-            MySqlCommand sql_cmd2 = new MySqlCommand("select quantia_total from tb_data where id_data = " + idData);
-            MySqlDataReader sql_dr = instancia_conexao.selecionar(sql_cmd2);
-            if (sql_dr.Read())
-            {
-                quantia_total = float.Parse(sql_dr["quantia_total"].ToString());
-                string query = "update tb_data set quantia_total = " + (quantia_total - valor).ToString().Replace(',', '.') + " where id_data = " + idData;
-                MySqlCommand sql_cmd = new MySqlCommand(query);
-                sql_dr.Close();
-                instancia_conexao.CRUD(sql_cmd);
-            }
-
-        }
+        }*/
 
         public string insertAno()
         {

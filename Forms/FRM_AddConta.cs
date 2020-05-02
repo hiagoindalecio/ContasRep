@@ -29,8 +29,6 @@ namespace ContasRep
             var valor = txtValor.Text.Split('$');
             string valorReal = valor[1].Replace(',', '.');
             objContas.Valor_Conta = (valorReal);
-            clsData objData = new clsData();
-            objData.AddConta(float.Parse(valorReal), dataId);
             MessageBox.Show(objContas.insert());
             this.Close();
         }

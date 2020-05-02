@@ -66,35 +66,38 @@ namespace ContasRep
 
         public void CarregarValores()
         {
-            string filtro = "";
-            double quantia;
+            double quantia = 0;
             int quantosMoradores = 0;
             clsMoradores obj_moradores = new clsMoradores();
-            MySqlDataReader sql_dr, sqldr = obj_moradores.GetAllMoradores();
-            while (sqldr.Read())
+            MySqlDataReader sql_dr = obj_moradores.GetAllMoradores();
+            while (sql_dr.Read())
             {
-                if (Convert.ToBoolean(sqldr["ativo"].ToString()))
+                if (Convert.ToBoolean(sql_dr["ativo"].ToString()))
                 {
                     quantosMoradores++;
                 }
             }
+            sql_dr.Close();
             clsData objData = new clsData();
             int idData = objData.GetIdByData(Convert.ToInt32(cmbMes.Text), Convert.ToInt32(cmbAno.Text));
-            if (idData != 0)
+            clsContas objContas = new clsContas();
+            sql_dr = objContas.GetContasByFiltro("where id_data = " + idData);
+            if (sql_dr.Read())
             {
-                filtro = "where id_data = " + idData.ToString();
-                sql_dr = objData.GetDataById(idData);
-                if (sql_dr.Read())
+                //Buscando quantia total
+                do
                 {
-                    //Buscando quantia total
-                    quantia = Convert.ToDouble(sql_dr["quantia_total"]);
-                    txtTotal.Text = "R$" + Math.Round(quantia,2).ToString();
-                    txtIndividual.Text = "R$" + Math.Round((quantia / quantosMoradores),2).ToString();
-                    quantia = 0;
-                    quantia = Convert.ToDouble(sql_dr["quantia_recebida"]);
-                    txtRecebido.Text = "R$" + Math.Round(quantia,2);
-
-                }
+                    quantia += Convert.ToDouble(sql_dr["valor_conta"]);
+                } while (sql_dr.Read());
+                sql_dr.Close();
+                sql_dr = objData.GetDataById(idData);
+                sql_dr.Read();
+                txtTotal.Text = "R$" + Math.Round(quantia,2).ToString();
+                txtIndividual.Text = "R$" + Math.Round((quantia / quantosMoradores),2).ToString();
+                quantia = 0;
+                quantia = Convert.ToDouble(sql_dr["quantia_recebida"]);
+                txtRecebido.Text = "R$" + Math.Round(quantia,2);
+                sql_dr.Close();
             }
             else
             {
