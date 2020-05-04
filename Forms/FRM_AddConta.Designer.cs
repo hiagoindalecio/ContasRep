@@ -134,6 +134,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(255)))));
             this.ClientSize = new System.Drawing.Size(439, 271);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.groupBox1);
@@ -141,6 +142,7 @@
             this.MaximumSize = new System.Drawing.Size(455, 310);
             this.MinimumSize = new System.Drawing.Size(455, 310);
             this.Name = "FRM_AddConta";
+            this.ShowIcon = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Adicionar Conta";
             this.groupBox1.ResumeLayout(false);

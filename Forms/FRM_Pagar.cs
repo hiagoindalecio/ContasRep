@@ -114,8 +114,6 @@ namespace ContasRep
 
         public void CarregarListaIndividual()
         {
-            cmbAno.Enabled = false;
-            cmbMes.Enabled = false;
             if (Equals(cmbAno.Text, "") || Equals(cmbMes.Text, ""))
             {
                 MessageBox.Show("Por favor selecione uma data válida para realizar a pesquisa!", "Atenção", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
@@ -124,45 +122,65 @@ namespace ContasRep
             }
             else
             {
-                btnCancel.Visible = true;
-                txtDescription.Text = "Contas que " + cmbMoradores.Text + " irá pagar:";
-                lstIndividual.Items.Clear();
-                string filtro = "";
-                clsContas objContas = new clsContas();
-                MySqlDataReader sql_dr;
                 clsData objData = new clsData();
-                int idData = objData.GetIdByData(Convert.ToInt32(cmbMes.Text), Convert.ToInt32(cmbAno.Text)), idConta;
-                if (idData != 0)
+                int idData = objData.GetIdByData(Convert.ToInt32(cmbMes.Text), Convert.ToInt32(cmbAno.Text)), idConta, valido = 1;
+                clsPagamentos obj_pagamentos = new clsPagamentos();
+                obj_pagamentos.Id_Data = idData;
+                MySqlDataReader sql_dr = obj_pagamentos.GetPagamentosByIdDate();
+                if (sql_dr.Read())
                 {
-                    filtro = "where id_data = " + idData.ToString();
-                    sql_dr = objContas.GetContasByFiltro(filtro);
-                    int count = 0;
-                    while (sql_dr.Read())
+                    DialogResult result = MessageBox.Show("Já existem pagamentos salvos nesta data, deseja sobrescrevê-los?", "Atenção!", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation);
+                    if (result == DialogResult.Yes)
                     {
-                        //Jogando os dados no list view
-                        ListViewItem instancia_lista = new ListViewItem(sql_dr["nome_conta"].ToString());
-                        instancia_lista.SubItems.Add(sql_dr["valor_conta"].ToString());
-                        lstIndividual.Items.Add(instancia_lista);
-                        idConta = int.Parse(sql_dr["id_conta"].ToString());
-                        count++;
+                        MessageBox.Show(obj_pagamentos.Delete());
+                        valido = 1;
                     }
-                    if (lstContas.Items.Count != lstIndividual.Items.Count)
+                    else
+                        valido = 0;
+                }
+                if (valido == 1)
+                {
+                    cmbAno.Enabled = false;
+                    cmbMes.Enabled = false;
+                    btnCancel.Visible = true;
+                    txtDescription.Text = "Contas que " + cmbMoradores.Text + " irá pagar:";
+                    lstIndividual.Items.Clear();
+                    string filtro = "";
+                    clsContas objContas = new clsContas();
+                    if (idData != 0)
                     {
-                        sql_dr.Close();
+                        filtro = "where id_data = " + idData.ToString();
                         sql_dr = objContas.GetContasByFiltro(filtro);
+                        int count = 0;
                         while (sql_dr.Read())
                         {
-                            ListViewItem instancia2 = new ListViewItem(sql_dr["nome_conta"].ToString());
-                            instancia2.SubItems.Add("R$" + double.Parse(sql_dr["valor_conta"].ToString()));
-                            instancia2.SubItems.Add("0");
-                            lstContas.Items.Add(instancia2);
+                            //Jogando os dados no list view
+                            ListViewItem instancia_lista = new ListViewItem(sql_dr["nome_conta"].ToString());
+                            instancia_lista.SubItems.Add(sql_dr["valor_conta"].ToString());
+                            lstIndividual.Items.Add(instancia_lista);
+                            idConta = int.Parse(sql_dr["id_conta"].ToString());
+                            count++;
                         }
+                        if (lstContas.Items.Count != lstIndividual.Items.Count)
+                        {
+                            sql_dr.Close();
+                            sql_dr = objContas.GetContasByFiltro(filtro);
+                            while (sql_dr.Read())
+                            {
+                                ListViewItem instancia2 = new ListViewItem(sql_dr["nome_conta"].ToString());
+                                instancia2.SubItems.Add("R$" + double.Parse(sql_dr["valor_conta"].ToString()));
+                                instancia2.SubItems.Add("0");
+                                lstContas.Items.Add(instancia2);
+                            }
+                        }
+                    }
+                    else
+                    {
+                        MessageBox.Show("Data não encontrada!", "Tente novamente");
                     }
                 }
                 else
-                {
-                    MessageBox.Show("Data não encontrada!", "Tente novamente");
-                }
+                    TelaInicial();
             }
         }
 
@@ -376,7 +394,15 @@ namespace ContasRep
                 if (i == lstGeral.Items.Count - 1)
                 {
                     obj_data.Id_data = obj_pagamentos.Id_Data;
-                    MessageBox.Show(obj_pagamentos.Pagar() + obj_data.AddPagamento(total_pagamentos));
+                    string resultado = obj_pagamentos.Pagar();
+                    if (Equals(resultado, "Sucesso! "))
+                    {
+                        MessageBox.Show(resultado + obj_data.AddPagamento(total_pagamentos));
+                    }
+                    else
+                    {
+                        MessageBox.Show(resultado);
+                    }
                 }
                 else
                 {

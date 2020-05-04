@@ -98,6 +98,18 @@ namespace ContasRep
                 quantia = Convert.ToDouble(sql_dr["quantia_recebida"]);
                 txtRecebido.Text = "R$" + Math.Round(quantia,2);
                 sql_dr.Close();
+                clsPagamentos objPagamento = new clsPagamentos();
+                objPagamento.Id_Data = idData;
+                sql_dr = objPagamento.GetPagamentosByIdDate();
+                while (sql_dr.Read())
+                {
+                    MySqlDataReader sql_dr2 = obj_moradores.GetMoradorByID(Convert.ToInt32(sql_dr["id_morador"]));
+                    sql_dr2.Read();
+                    ListViewItem item = new ListViewItem(sql_dr2["nome"].ToString());
+                    sql_dr2.Close();
+                    item.SubItems.Add(sql_dr["valor_pago"].ToString());
+                    lstPagamentos.Items.Add(item);
+                }
             }
             else
             {

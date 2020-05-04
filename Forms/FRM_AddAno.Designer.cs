@@ -106,6 +106,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(255)))));
             this.ClientSize = new System.Drawing.Size(329, 161);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.groupBox1);
@@ -113,6 +114,7 @@
             this.MaximumSize = new System.Drawing.Size(345, 200);
             this.MinimumSize = new System.Drawing.Size(345, 200);
             this.Name = "FRM_AddAno";
+            this.ShowIcon = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Adicionar Ano";
             this.groupBox1.ResumeLayout(false);

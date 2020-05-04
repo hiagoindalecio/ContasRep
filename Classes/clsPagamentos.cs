@@ -46,11 +46,42 @@ namespace ContasRep.Classes
                 MySqlCommand sql_cmd = new MySqlCommand(query);
                 instancia_conexao.CRUD(sql_cmd);
                 if (!Equals(ds_msg, "Erro ao registrar pagamentos! Pode ser que algum pagamento não tenha sido registrado com sucesso. "))
-                ds_msg = "Pagamentos registrados com sucesso! ";
+                ds_msg = "Sucesso! ";
             }
-            catch (Exception ex)
+            catch
             {
-                ds_msg = "Erro ao registrar pagamentos! Pode ser que algum pagamento não tenha sido registrado com sucesso. " + ex.Message;
+                ds_msg = "Erro ao registrar pagamentos! Pode ser que algum pagamento não tenha sido registrado com sucesso. ";
+            }
+            return ds_msg;
+        }
+
+        public MySqlDataReader GetPagamentosByIdDate()
+        {
+            clsConexao instancia_conexao = new clsConexao();
+            MySqlCommand sql_cmd = new MySqlCommand();
+            sql_cmd.CommandType = CommandType.Text;
+            sql_cmd.CommandText = "SELECT * FROM tb_pagamentos WHERE id_data =" + Id_Data.ToString();
+            MySqlDataReader sql_dr = instancia_conexao.selecionar(sql_cmd);
+            return sql_dr;
+        }
+
+        public string Delete()
+        {
+            try
+            {
+                clsConexao instancia_conexao = new clsConexao();
+                string query = "DELETE FROM tb_pagamentos WHERE id_data = " + Id_Data;
+                MySqlCommand sql_cmd = new MySqlCommand(query);
+                instancia_conexao.CRUD(sql_cmd);
+                query = "UPDATE tb_data SET quantia_recebida = 0 WHERE id_data = " + Id_Data;
+                sql_cmd.CommandText = query;
+                instancia_conexao.CRUD(sql_cmd);
+                if (!Equals(ds_msg, "Erro ao deletar pagamentos! Pode ser que algum pagamento não tenha sido deletado com sucesso. "))
+                    ds_msg = "Pagamentos deletados com sucesso! ";
+            }
+            catch
+            {
+                ds_msg = "Erro ao deletar pagamentos! Pode ser que algum pagamento não tenha sido deletado com sucesso. ";
             }
             return ds_msg;
         }

@@ -50,6 +50,9 @@
   <PropertyGroup>
     <StartupObject>ContasRep.Program</StartupObject>
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>Aha-Soft-Business-Toolbar-Payment.ico</ApplicationIcon>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="MySql.Data">
       <HintPath>Z:\Downloads\MySql.Data.DLL</HintPath>
@@ -219,6 +222,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\pagar %281%29.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Aha-Soft-Business-Toolbar-Payment.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
