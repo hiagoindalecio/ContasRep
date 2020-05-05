@@ -46,6 +46,7 @@
             this.label5 = new System.Windows.Forms.Label();
             this.button2 = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
+            this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -64,7 +65,7 @@
             // 
             this.label8.AutoSize = true;
             this.label8.Font = new System.Drawing.Font("MS Gothic", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label8.Location = new System.Drawing.Point(19, 125);
+            this.label8.Location = new System.Drawing.Point(41, 122);
             this.label8.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(196, 19);
@@ -75,7 +76,7 @@
             // 
             this.txtRecebido.Enabled = false;
             this.txtRecebido.Font = new System.Drawing.Font("MS Gothic", 14.25F);
-            this.txtRecebido.Location = new System.Drawing.Point(223, 122);
+            this.txtRecebido.Location = new System.Drawing.Point(245, 119);
             this.txtRecebido.Margin = new System.Windows.Forms.Padding(4);
             this.txtRecebido.Name = "txtRecebido";
             this.txtRecebido.Size = new System.Drawing.Size(149, 26);
@@ -86,7 +87,7 @@
             // 
             this.txtTotal.Enabled = false;
             this.txtTotal.Font = new System.Drawing.Font("MS Gothic", 14.25F);
-            this.txtTotal.Location = new System.Drawing.Point(223, 88);
+            this.txtTotal.Location = new System.Drawing.Point(245, 85);
             this.txtTotal.Margin = new System.Windows.Forms.Padding(4);
             this.txtTotal.Name = "txtTotal";
             this.txtTotal.Size = new System.Drawing.Size(149, 26);
@@ -97,7 +98,7 @@
             // 
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("MS Gothic", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(63, 91);
+            this.label4.Location = new System.Drawing.Point(85, 88);
             this.label4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(152, 19);
@@ -193,13 +194,14 @@
             this.lstPagamentos.BackColor = System.Drawing.Color.Violet;
             this.lstPagamentos.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.clnNome,
-            this.clnValor});
+            this.clnValor,
+            this.columnHeader1});
             this.lstPagamentos.Font = new System.Drawing.Font("MS Gothic", 12F);
             this.lstPagamentos.ForeColor = System.Drawing.SystemColors.InfoText;
             this.lstPagamentos.FullRowSelect = true;
-            this.lstPagamentos.Location = new System.Drawing.Point(484, 53);
+            this.lstPagamentos.Location = new System.Drawing.Point(451, 40);
             this.lstPagamentos.Name = "lstPagamentos";
-            this.lstPagamentos.Size = new System.Drawing.Size(604, 280);
+            this.lstPagamentos.Size = new System.Drawing.Size(637, 280);
             this.lstPagamentos.TabIndex = 49;
             this.lstPagamentos.UseCompatibleStateImageBehavior = false;
             this.lstPagamentos.View = System.Windows.Forms.View.Details;
@@ -207,18 +209,18 @@
             // clnNome
             // 
             this.clnNome.Text = "Nome";
-            this.clnNome.Width = 356;
+            this.clnNome.Width = 270;
             // 
             // clnValor
             // 
             this.clnValor.Text = "Valor";
-            this.clnValor.Width = 242;
+            this.clnValor.Width = 180;
             // 
             // label6
             // 
             this.label6.AutoSize = true;
             this.label6.Font = new System.Drawing.Font("MS Gothic", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.Location = new System.Drawing.Point(480, 31);
+            this.label6.Location = new System.Drawing.Point(447, 18);
             this.label6.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(141, 19);
@@ -229,7 +231,7 @@
             // 
             this.txtIndividual.Enabled = false;
             this.txtIndividual.Font = new System.Drawing.Font("MS Gothic", 14.25F);
-            this.txtIndividual.Location = new System.Drawing.Point(223, 156);
+            this.txtIndividual.Location = new System.Drawing.Point(245, 153);
             this.txtIndividual.Margin = new System.Windows.Forms.Padding(4);
             this.txtIndividual.Name = "txtIndividual";
             this.txtIndividual.Size = new System.Drawing.Size(149, 26);
@@ -240,7 +242,7 @@
             // 
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("MS Gothic", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.Location = new System.Drawing.Point(19, 159);
+            this.label5.Location = new System.Drawing.Point(41, 156);
             this.label5.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(196, 19);
@@ -275,6 +277,11 @@
             this.button1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
+            // columnHeader1
+            // 
+            this.columnHeader1.Text = "Contas";
+            this.columnHeader1.Width = 182;
             // 
             // FRM_Pesquisar
             // 
@@ -325,5 +332,6 @@
         private System.Windows.Forms.ListView lstPagamentos;
         private System.Windows.Forms.ColumnHeader clnNome;
         private System.Windows.Forms.ColumnHeader clnValor;
+        private System.Windows.Forms.ColumnHeader columnHeader1;
     }
 }

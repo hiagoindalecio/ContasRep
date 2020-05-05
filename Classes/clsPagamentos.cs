@@ -14,6 +14,7 @@ namespace ContasRep.Classes
         public string ds_msg;
         int mId_Pagamento, mId_Morador, mId_Data;
         double mValor_Pago;
+        string mContas;
 
         public int Id_Morador
         {
@@ -35,6 +36,11 @@ namespace ContasRep.Classes
             get { return mValor_Pago; }
             set { mValor_Pago = value; }
         }
+        public string Contas
+        {
+            get { return mContas; }
+            set { mContas = value; }
+        }
 
         public string Pagar()
         {
@@ -42,7 +48,7 @@ namespace ContasRep.Classes
             {
                 clsConexao instancia_conexao = new clsConexao();
                 var valor = Valor_Pago.ToString().Replace(',', '.');
-                string query = "insert into tb_pagamentos values (0, " + Id_Morador.ToString() + ", " + Id_Data.ToString() + ", " + valor + ")";
+                string query = "insert into tb_pagamentos values (0, " + Id_Morador.ToString() + ", " + Id_Data.ToString() + ", " + valor + ", '" + Contas +"')";
                 MySqlCommand sql_cmd = new MySqlCommand(query);
                 instancia_conexao.CRUD(sql_cmd);
                 if (!Equals(ds_msg, "Erro ao registrar pagamentos! Pode ser que algum pagamento não tenha sido registrado com sucesso. "))

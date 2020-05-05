@@ -252,6 +252,7 @@ namespace ContasRep
                 }
                 cont++;
             }
+            item.SubItems.Add("");
             item.SubItems.Add(contas);
             lstGeral.Items.Add(item);
             cmbMoradores.Items.Remove(cmbMoradores.Text);
@@ -305,8 +306,9 @@ namespace ContasRep
                 double valor = double.Parse(array[1]);
                 int pagantes = int.Parse(lstContas.Items[y].SubItems[2].Text);
                 ListViewItem item = new ListViewItem(lstContas.Items[y].Text);
-                item.SubItems.Add("R$" + (Math.Round(valor / pagantes,2)).ToString());
+                item.SubItems.Add(lstContas.Items[y].SubItems[1].Text);
                 item.SubItems.Add(lstContas.Items[y].SubItems[2].Text);
+                item.SubItems.Add("R$" + (Math.Round(valor / pagantes, 2)).ToString());
                 lstContas.Items[y] = item;
             }
         }
@@ -317,20 +319,21 @@ namespace ContasRep
             double total = 0;
             for (int i = 0; i < lstGeral.Items.Count; i++)
             {
-                var array = lstGeral.Items[i].SubItems[1].Text.Split('|');
+                var array = lstGeral.Items[i].SubItems[2].Text.Split('|');
                 for(int j = 0; j < array.Length; j++)
                 {
                     for(int y = 0; y< lstContas.Items.Count; y++)
                     {
                         if(Equals(array[j], lstContas.Items[y].Text))
                         {
-                            var valor = lstContas.Items[y].SubItems[1].Text.Split('$');
+                            var valor = lstContas.Items[y].SubItems[3].Text.Split('$');
                             total += double.Parse(valor[1]);
                         }
                     }
                 }
                 ListViewItem item = new ListViewItem(lstGeral.Items[i].Text);
                 item.SubItems.Add("R$" + total.ToString());
+                item.SubItems.Add(lstGeral.Items[i].SubItems[2].Text);
                 lstGeral.Items[i] = item;
                 total = 0;
             }
@@ -367,6 +370,7 @@ namespace ContasRep
                     cmbMoradores.Enabled = false;
                     btnSalvar.Text = "Encerrar";
                     ckbSelectAll.Visible = false;
+                    txtDescription.Text = "Visualização final de pagamentos:";
                 }
             }
             else
@@ -390,6 +394,7 @@ namespace ContasRep
                 obj_pagamentos.Id_Morador = int.Parse(sqldr["id_morador"].ToString());
                 var valor = lstGeral.Items[i].SubItems[1].Text.Split('$');
                 obj_pagamentos.Valor_Pago = double.Parse(valor[1]);
+                obj_pagamentos.Contas = lstGeral.Items[i].SubItems[2].Text;
                 total_pagamentos += obj_pagamentos.Valor_Pago;
                 if (i == lstGeral.Items.Count - 1)
                 {

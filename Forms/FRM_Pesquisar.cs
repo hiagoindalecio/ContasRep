@@ -107,7 +107,8 @@ namespace ContasRep
                     sql_dr2.Read();
                     ListViewItem item = new ListViewItem(sql_dr2["nome"].ToString());
                     sql_dr2.Close();
-                    item.SubItems.Add(sql_dr["valor_pago"].ToString());
+                    item.SubItems.Add("R$" + sql_dr["valor_pago"].ToString());
+                    item.SubItems.Add(sql_dr["contas"].ToString());
                     lstPagamentos.Items.Add(item);
                 }
             }

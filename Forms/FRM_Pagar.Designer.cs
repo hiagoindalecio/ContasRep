@@ -35,11 +35,9 @@
             this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader4 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.btnSalvar = new System.Windows.Forms.Button();
             this.btnCancel = new System.Windows.Forms.Button();
-            this.lstIndividual = new System.Windows.Forms.ListView();
-            this.clnNomeC = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.clnValorC = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.cmbMes = new System.Windows.Forms.ComboBox();
             this.label2 = new System.Windows.Forms.Label();
             this.cmbAno = new System.Windows.Forms.ComboBox();
@@ -51,17 +49,21 @@
             this.clnNome = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.clnValor = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.label1 = new System.Windows.Forms.Label();
+            this.lstIndividual = new System.Windows.Forms.ListView();
+            this.columnHeader5 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader6 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader7 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
             // groupBox1
             // 
             this.groupBox1.Controls.Add(this.ckbSelectAll);
+            this.groupBox1.Controls.Add(this.lstIndividual);
             this.groupBox1.Controls.Add(this.label4);
             this.groupBox1.Controls.Add(this.lstContas);
             this.groupBox1.Controls.Add(this.btnSalvar);
             this.groupBox1.Controls.Add(this.btnCancel);
-            this.groupBox1.Controls.Add(this.lstIndividual);
             this.groupBox1.Controls.Add(this.cmbMes);
             this.groupBox1.Controls.Add(this.label2);
             this.groupBox1.Controls.Add(this.cmbAno);
@@ -84,7 +86,7 @@
             // ckbSelectAll
             // 
             this.ckbSelectAll.AutoSize = true;
-            this.ckbSelectAll.Location = new System.Drawing.Point(605, 96);
+            this.ckbSelectAll.Location = new System.Drawing.Point(453, 96);
             this.ckbSelectAll.Name = "ckbSelectAll";
             this.ckbSelectAll.Size = new System.Drawing.Size(146, 17);
             this.ckbSelectAll.TabIndex = 61;
@@ -96,7 +98,7 @@
             // 
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("MS Gothic", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(751, 74);
+            this.label4.Location = new System.Drawing.Point(601, 74);
             this.label4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(86, 19);
@@ -108,11 +110,13 @@
             this.lstContas.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.columnHeader1,
             this.columnHeader3,
-            this.columnHeader4});
+            this.columnHeader4,
+            this.columnHeader2});
             this.lstContas.Font = new System.Drawing.Font("MS Gothic", 12F);
-            this.lstContas.Location = new System.Drawing.Point(755, 96);
+            this.lstContas.ImeMode = System.Windows.Forms.ImeMode.Disable;
+            this.lstContas.Location = new System.Drawing.Point(605, 96);
             this.lstContas.Name = "lstContas";
-            this.lstContas.Size = new System.Drawing.Size(392, 280);
+            this.lstContas.Size = new System.Drawing.Size(542, 280);
             this.lstContas.TabIndex = 59;
             this.lstContas.UseCompatibleStateImageBehavior = false;
             this.lstContas.View = System.Windows.Forms.View.Details;
@@ -120,17 +124,22 @@
             // columnHeader1
             // 
             this.columnHeader1.Text = "Contas";
-            this.columnHeader1.Width = 150;
+            this.columnHeader1.Width = 146;
             // 
             // columnHeader3
             // 
-            this.columnHeader3.Text = "Valor";
-            this.columnHeader3.Width = 114;
+            this.columnHeader3.Text = "Valor Total";
+            this.columnHeader3.Width = 122;
             // 
             // columnHeader4
             // 
             this.columnHeader4.Text = "Total Pagantes";
-            this.columnHeader4.Width = 124;
+            this.columnHeader4.Width = 127;
+            // 
+            // columnHeader2
+            // 
+            this.columnHeader2.Text = "Valor Individual";
+            this.columnHeader2.Width = 143;
             // 
             // btnSalvar
             // 
@@ -151,30 +160,6 @@
             this.btnCancel.Text = "Cancelar";
             this.btnCancel.UseVisualStyleBackColor = true;
             this.btnCancel.Click += new System.EventHandler(this.Cancelar);
-            // 
-            // lstIndividual
-            // 
-            this.lstIndividual.CheckBoxes = true;
-            this.lstIndividual.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.clnNomeC,
-            this.clnValorC});
-            this.lstIndividual.Font = new System.Drawing.Font("MS Gothic", 12F);
-            this.lstIndividual.Location = new System.Drawing.Point(7, 96);
-            this.lstIndividual.Name = "lstIndividual";
-            this.lstIndividual.Size = new System.Drawing.Size(744, 280);
-            this.lstIndividual.TabIndex = 55;
-            this.lstIndividual.UseCompatibleStateImageBehavior = false;
-            this.lstIndividual.View = System.Windows.Forms.View.Details;
-            // 
-            // clnNomeC
-            // 
-            this.clnNomeC.Text = "Nome";
-            this.clnNomeC.Width = 374;
-            // 
-            // clnValorC
-            // 
-            this.clnValorC.Text = "Valor";
-            this.clnValorC.Width = 366;
             // 
             // cmbMes
             // 
@@ -265,20 +250,21 @@
             this.txtDescription.Location = new System.Drawing.Point(8, 74);
             this.txtDescription.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.txtDescription.Name = "txtDescription";
-            this.txtDescription.Size = new System.Drawing.Size(75, 19);
+            this.txtDescription.Size = new System.Drawing.Size(207, 19);
             this.txtDescription.TabIndex = 46;
-            this.txtDescription.Text = "Geral:";
+            this.txtDescription.Text = "Vizualização final";
             // 
             // lstGeral
             // 
             this.lstGeral.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.clnNome,
-            this.clnValor});
+            this.clnValor,
+            this.columnHeader7});
             this.lstGeral.Font = new System.Drawing.Font("MS Gothic", 12F);
-            this.lstGeral.ImeMode = System.Windows.Forms.ImeMode.NoControl;
+            this.lstGeral.ImeMode = System.Windows.Forms.ImeMode.Disable;
             this.lstGeral.Location = new System.Drawing.Point(7, 96);
             this.lstGeral.Name = "lstGeral";
-            this.lstGeral.Size = new System.Drawing.Size(744, 280);
+            this.lstGeral.Size = new System.Drawing.Size(592, 280);
             this.lstGeral.TabIndex = 45;
             this.lstGeral.UseCompatibleStateImageBehavior = false;
             this.lstGeral.View = System.Windows.Forms.View.Details;
@@ -286,12 +272,12 @@
             // clnNome
             // 
             this.clnNome.Text = "Nome";
-            this.clnNome.Width = 372;
+            this.clnNome.Width = 339;
             // 
             // clnValor
             // 
-            this.clnValor.Text = "Valor";
-            this.clnValor.Width = 357;
+            this.clnValor.Text = "Valor Final";
+            this.clnValor.Width = 154;
             // 
             // label1
             // 
@@ -302,6 +288,36 @@
             this.label1.Size = new System.Drawing.Size(70, 24);
             this.label1.TabIndex = 47;
             this.label1.Text = "Pagar";
+            // 
+            // lstIndividual
+            // 
+            this.lstIndividual.CheckBoxes = true;
+            this.lstIndividual.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.columnHeader5,
+            this.columnHeader6});
+            this.lstIndividual.Font = new System.Drawing.Font("MS Gothic", 12F);
+            this.lstIndividual.ImeMode = System.Windows.Forms.ImeMode.Disable;
+            this.lstIndividual.Location = new System.Drawing.Point(7, 96);
+            this.lstIndividual.Name = "lstIndividual";
+            this.lstIndividual.Size = new System.Drawing.Size(592, 280);
+            this.lstIndividual.TabIndex = 62;
+            this.lstIndividual.UseCompatibleStateImageBehavior = false;
+            this.lstIndividual.View = System.Windows.Forms.View.Details;
+            // 
+            // columnHeader5
+            // 
+            this.columnHeader5.Text = "Nome";
+            this.columnHeader5.Width = 338;
+            // 
+            // columnHeader6
+            // 
+            this.columnHeader6.Text = "Valor";
+            this.columnHeader6.Width = 250;
+            // 
+            // columnHeader7
+            // 
+            this.columnHeader7.Text = "Contas";
+            this.columnHeader7.Width = 192;
             // 
             // FRM_Pagar
             // 
@@ -336,18 +352,20 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.ComboBox cmbAno;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.ListView lstIndividual;
         internal System.Windows.Forms.ColumnHeader clnNome;
-        internal System.Windows.Forms.ColumnHeader clnNomeC;
         private System.Windows.Forms.Button btnSalvar;
         private System.Windows.Forms.Button btnCancel;
         internal System.Windows.Forms.ColumnHeader clnValor;
-        internal System.Windows.Forms.ColumnHeader clnValorC;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.ListView lstContas;
         internal System.Windows.Forms.ColumnHeader columnHeader1;
         private System.Windows.Forms.CheckBox ckbSelectAll;
         private System.Windows.Forms.ColumnHeader columnHeader3;
         private System.Windows.Forms.ColumnHeader columnHeader4;
+        private System.Windows.Forms.ColumnHeader columnHeader2;
+        private System.Windows.Forms.ListView lstContas;
+        private System.Windows.Forms.ListView lstIndividual;
+        internal System.Windows.Forms.ColumnHeader columnHeader5;
+        internal System.Windows.Forms.ColumnHeader columnHeader6;
+        private System.Windows.Forms.ColumnHeader columnHeader7;
     }
 }
