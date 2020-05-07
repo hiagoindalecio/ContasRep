@@ -82,6 +82,15 @@ namespace ContasRep
                     //Jogando os dados no list view
                     ListViewItem instancia_lista = new ListViewItem(sql_dr["nome_conta"].ToString());
                     instancia_lista.SubItems.Add(sql_dr["valor_conta"].ToString());
+                    bool paga = Convert.ToBoolean(sql_dr["paga"].ToString());
+                    if (paga)
+                    {
+                        instancia_lista.SubItems.Add("Sim");
+                    }
+                    else
+                    {
+                        instancia_lista.SubItems.Add("Não");
+                    }
                     lstContas.Items.Add(instancia_lista);
                 }
             }
@@ -122,7 +131,7 @@ namespace ContasRep
             if (!Equals(cmbMes.Text, "") || !Equals(cmbAno.Text, ""))
             {
                 clsData objData = new clsData();
-                FRM_AddConta form_adc = new FRM_AddConta(objData.GetIdByData(Convert.ToInt32(cmbMes.Text), Convert.ToInt32(cmbAno.Text)));
+                FRM_AddConta form_adc = new FRM_AddConta(objData.GetIdByData(Convert.ToInt32(cmbMes.Text), Convert.ToInt32(cmbAno.Text)), 0);
                 form_adc.ShowDialog();
                 CarregarLista();
             }
@@ -136,6 +145,15 @@ namespace ContasRep
         {
             if (!Equals(contaSelecionada, "0"))
             {
+                clsContas objContas = new clsContas();
+                objContas.Nome_Conta = lstContas.SelectedItems[0].Text;
+                objContas.Valor_Conta = lstContas.SelectedItems[0].SubItems[1].Text;
+                clsData objData = new clsData();
+                int idData = objData.GetIdByData(Convert.ToInt32(cmbMes.Text), Convert.ToInt32(cmbAno.Text));
+                objContas.Id_Data = idData;
+                int idConta = objContas.GetId();
+                FRM_AddConta form_adc = new FRM_AddConta(idData, idConta);
+                form_adc.ShowDialog();
                 CarregarLista();
             }
             else if (Equals(contaSelecionada, "0"))

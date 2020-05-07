@@ -35,6 +35,8 @@
             this.txtNome = new System.Windows.Forms.TextBox();
             this.label8 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
+            this.lblPaga = new System.Windows.Forms.Label();
+            this.cmbPaga = new System.Windows.Forms.ComboBox();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -52,6 +54,8 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.cmbPaga);
+            this.groupBox1.Controls.Add(this.lblPaga);
             this.groupBox1.Controls.Add(this.txtValor);
             this.groupBox1.Controls.Add(this.btnSalvar);
             this.groupBox1.Controls.Add(this.txtNome);
@@ -59,11 +63,11 @@
             this.groupBox1.Controls.Add(this.label4);
             this.groupBox1.Font = new System.Drawing.Font("MS Gothic", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBox1.ForeColor = System.Drawing.SystemColors.ControlText;
-            this.groupBox1.Location = new System.Drawing.Point(10, 96);
+            this.groupBox1.Location = new System.Drawing.Point(10, 69);
             this.groupBox1.Margin = new System.Windows.Forms.Padding(4);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Padding = new System.Windows.Forms.Padding(4);
-            this.groupBox1.Size = new System.Drawing.Size(413, 158);
+            this.groupBox1.Size = new System.Drawing.Size(413, 185);
             this.groupBox1.TabIndex = 48;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Novo Morador";
@@ -85,7 +89,7 @@
             // 
             this.btnSalvar.Font = new System.Drawing.Font("MS Gothic", 14.25F, System.Drawing.FontStyle.Bold);
             this.btnSalvar.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
-            this.btnSalvar.Location = new System.Drawing.Point(279, 104);
+            this.btnSalvar.Location = new System.Drawing.Point(279, 141);
             this.btnSalvar.Margin = new System.Windows.Forms.Padding(4);
             this.btnSalvar.Name = "btnSalvar";
             this.btnSalvar.Size = new System.Drawing.Size(126, 36);
@@ -130,6 +134,33 @@
             this.label4.Text = "Nome:";
             this.label4.UseWaitCursor = true;
             // 
+            // lblPaga
+            // 
+            this.lblPaga.AutoSize = true;
+            this.lblPaga.Font = new System.Drawing.Font("MS Gothic", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblPaga.Location = new System.Drawing.Point(24, 97);
+            this.lblPaga.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblPaga.Name = "lblPaga";
+            this.lblPaga.Size = new System.Drawing.Size(64, 19);
+            this.lblPaga.TabIndex = 47;
+            this.lblPaga.Text = "Paga:";
+            this.lblPaga.UseWaitCursor = true;
+            // 
+            // cmbPaga
+            // 
+            this.cmbPaga.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbPaga.Font = new System.Drawing.Font("MS Gothic", 14.25F, System.Drawing.FontStyle.Bold);
+            this.cmbPaga.FormattingEnabled = true;
+            this.cmbPaga.Items.AddRange(new object[] {
+            "Sim",
+            "Não"});
+            this.cmbPaga.Location = new System.Drawing.Point(96, 94);
+            this.cmbPaga.Margin = new System.Windows.Forms.Padding(4);
+            this.cmbPaga.Name = "cmbPaga";
+            this.cmbPaga.Size = new System.Drawing.Size(104, 27);
+            this.cmbPaga.TabIndex = 48;
+            this.cmbPaga.UseWaitCursor = true;
+            // 
             // FRM_AddConta
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -161,5 +192,7 @@
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.TextBox txtValor;
+        private System.Windows.Forms.Label lblPaga;
+        private System.Windows.Forms.ComboBox cmbPaga;
     }
 }

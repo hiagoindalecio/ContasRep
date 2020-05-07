@@ -13,7 +13,7 @@ namespace ContasRep.Classes
     {
         public string ds_msg;
 
-        int mId_Data, mId_Conta;
+        int mId_Data, mId_Conta, mPaga;
         string mNome_Conta, mValor_Conta;
 
         public int Id_Data
@@ -36,26 +36,31 @@ namespace ContasRep.Classes
             get { return mValor_Conta; }
             set { mValor_Conta = value; }
         }
+        public int Paga
+        {
+            get { return mPaga; }
+            set { mPaga = value; }
+        }
 
         public MySqlDataReader GetContasByFiltro(string filtro)
         {
             clsConexao instancia_cnx = new clsConexao();
             MySqlCommand sql_cmd = new MySqlCommand();
             sql_cmd.CommandType = CommandType.Text;
-            string sql_query = "SELECT id_conta, nome_conta, valor_conta FROM tb_contas " + filtro;
+            string sql_query = "SELECT id_conta, nome_conta, valor_conta, paga FROM tb_contas " + filtro;
             sql_cmd.CommandText = sql_query;
             MySqlDataReader sql_dr = instancia_cnx.selecionar(sql_cmd);
             return sql_dr;
         }
 
-        public int GetId(string name, string valor)
+        public int GetId()
         {
             int id = 0;
             clsConexao instancia_cnx = new clsConexao();
             MySqlCommand sql_cmd = new MySqlCommand();
             sql_cmd.CommandType = CommandType.Text;
-            valor = valor.Replace(',', '.');
-            string sql_query = "SELECT id_conta FROM tb_contas where nome_conta = '" + name + "' and valor_conta = " + valor;
+            string valor = Valor_Conta.Replace(',', '.');
+            string sql_query = "SELECT id_conta FROM tb_contas where nome_conta = '" + Nome_Conta + "' and round(valor_conta,2) = " + valor + " and id_data = " + Id_Data;
             sql_cmd.CommandText = sql_query;
             MySqlDataReader sql_dr = instancia_cnx.selecionar(sql_cmd);
             if (sql_dr.Read())
@@ -70,7 +75,7 @@ namespace ContasRep.Classes
             try
             {
                 clsConexao instancia_conexao = new clsConexao();
-                string query = "insert into tb_contas values (0, " + Id_Data + ", '" + Nome_Conta + "', " + Valor_Conta + ");";
+                string query = "insert into tb_contas values (0, " + Id_Data + ", '" + Nome_Conta + "', " + Valor_Conta + 0 + ");";
                 MySqlCommand sql_cmd = new MySqlCommand(query);
                 instancia_conexao.CRUD(sql_cmd);
                 ds_msg = "Conta inserida com sucesso!";
@@ -78,6 +83,23 @@ namespace ContasRep.Classes
             catch (Exception ex)
             {
                 ds_msg = "Erro ao inserir conta!" + ex.Message;
+            }
+            return ds_msg;
+        }
+
+        public string update()
+        {
+            try
+            {
+                clsConexao instancia_conexao = new clsConexao();
+                string query = "update tb_contas set nome_conta = '" + Nome_Conta + "', valor_conta = " + Valor_Conta + ", paga = " + Paga + " where id_conta = " + Id_Conta;
+                MySqlCommand sql_cmd = new MySqlCommand(query);
+                instancia_conexao.CRUD(sql_cmd);
+                ds_msg = "Conta atualizada com sucesso!";
+            }
+            catch (Exception ex)
+            {
+                ds_msg = "Erro ao atualizada conta!" + ex.Message;
             }
             return ds_msg;
         }

@@ -64,7 +64,7 @@ namespace ContasRep.Classes
             clsConexao instancia_cnx = new clsConexao();
             MySqlCommand sql_cmd = new MySqlCommand();
             sql_cmd.CommandType = CommandType.Text;
-            string sql_query = "SELECT id_data, mes, ano, quantia_Recebida FROM tb_data where mes = " + mes.ToString() + " and ano = " + ano.ToString();
+            string sql_query = "SELECT id_data FROM tb_data where mes = " + mes.ToString() + " and ano = " + ano.ToString();
             sql_cmd.CommandText = sql_query;
             MySqlDataReader sql_dr = instancia_cnx.selecionar(sql_cmd);
             if (sql_dr.Read())

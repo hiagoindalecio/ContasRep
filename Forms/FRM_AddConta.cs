@@ -14,11 +14,41 @@ namespace ContasRep
 {
     public partial class FRM_AddConta : Form
     {
-        int dataId;
-        public FRM_AddConta(int idData)
+        int dataId, contaId;
+        public FRM_AddConta(int idData, int idConta)
         {
             InitializeComponent();
             dataId = idData;
+            contaId = idConta;
+            VerificarExistencia();
+        }
+
+        private void VerificarExistencia()
+        {
+            if (Convert.ToBoolean(contaId))
+            {
+                clsContas objContas = new clsContas();
+                MySqlDataReader sql_dr = objContas.GetContasByFiltro("where id_conta = " + contaId);
+                sql_dr.Read();
+                txtNome.Text = sql_dr["nome_conta"].ToString();
+                txtValor.Text = "R$" + sql_dr["valor_conta"].ToString();
+                bool paga = Convert.ToBoolean(sql_dr["paga"].ToString());
+                if (paga)
+                {
+                    cmbPaga.Text = "Sim";
+                }
+                else
+                {
+                    cmbPaga.Text = "Não";
+                }
+                cmbPaga.Visible = true;
+                lblPaga.Visible = true;
+            }
+            else
+            {
+                cmbPaga.Visible = false;
+                lblPaga.Visible = false;
+            }
         }
 
         private void btnSalvar_Click(object sender, EventArgs e)
@@ -29,7 +59,24 @@ namespace ContasRep
             var valor = txtValor.Text.Split('$');
             string valorReal = valor[1].Replace(',', '.');
             objContas.Valor_Conta = (valorReal);
-            MessageBox.Show(objContas.insert());
+            if (!Convert.ToBoolean(contaId))
+            {
+                objContas.Paga = 0;
+                MessageBox.Show(objContas.insert());
+            }
+            else
+            {
+                objContas.Id_Conta = contaId;
+                if (Equals(cmbPaga.Text, "Sim"))
+                {
+                    objContas.Paga = 1;
+                }
+                else
+                {
+                    objContas.Paga = 0;
+                }
+                MessageBox.Show(objContas.update());
+            }
             this.Close();
         }
 

@@ -42,6 +42,7 @@
             this.button1 = new System.Windows.Forms.Button();
             this.cmbAno = new System.Windows.Forms.ComboBox();
             this.label3 = new System.Windows.Forms.Label();
+            this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.SuspendLayout();
@@ -61,7 +62,8 @@
             this.lstContas.BackColor = System.Drawing.Color.Violet;
             this.lstContas.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.clnNome,
-            this.clnValor});
+            this.clnValor,
+            this.columnHeader1});
             this.lstContas.Font = new System.Drawing.Font("MS Gothic", 12F);
             this.lstContas.ForeColor = System.Drawing.SystemColors.InfoText;
             this.lstContas.FullRowSelect = true;
@@ -76,12 +78,12 @@
             // clnNome
             // 
             this.clnNome.Text = "Nome";
-            this.clnNome.Width = 534;
+            this.clnNome.Width = 450;
             // 
             // clnValor
             // 
             this.clnValor.Text = "Valor";
-            this.clnValor.Width = 242;
+            this.clnValor.Width = 254;
             // 
             // groupBox1
             // 
@@ -215,6 +217,11 @@
             this.label3.TabIndex = 47;
             this.label3.Text = "Ano: ";
             // 
+            // columnHeader1
+            // 
+            this.columnHeader1.Text = "Paga";
+            this.columnHeader1.Width = 75;
+            // 
             // FRM_Contas
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -254,5 +261,6 @@
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.ComboBox cmbAno;
         private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.ColumnHeader columnHeader1;
     }
 }
