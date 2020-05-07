@@ -65,3 +65,5 @@ Z:\Projects\Projeto-ContasRep\ContasRep\obj\Debug\ContasRep.FRM_Principal.resour
 Z:\Projects\Projeto-ContasRep\ContasRep\obj\Debug\ContasRep.Properties.Resources.resources
 Z:\Projects\Projeto-ContasRep\ContasRep\obj\Debug\ContasRep.csproj.GenerateResource.Cache
 Z:\Projects\Projeto-ContasRep\ContasRep\bin\Debug\ContasRep.pdb
+Z:\Projects\Projeto-ContasRep\ContasRep\bin\Debug\itextsharp.dll
+Z:\Projects\Projeto-ContasRep\ContasRep\bin\Debug\itextsharp.xml

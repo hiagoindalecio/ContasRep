@@ -38,15 +38,16 @@
             this.cmbAno = new System.Windows.Forms.ComboBox();
             this.label3 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.btnRelatorio = new System.Windows.Forms.Button();
             this.lstPagamentos = new System.Windows.Forms.ListView();
             this.clnNome = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.clnValor = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.label6 = new System.Windows.Forms.Label();
             this.txtIndividual = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
             this.button2 = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
-            this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -164,6 +165,7 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.btnRelatorio);
             this.groupBox1.Controls.Add(this.lstPagamentos);
             this.groupBox1.Controls.Add(this.label6);
             this.groupBox1.Controls.Add(this.txtIndividual);
@@ -184,10 +186,24 @@
             this.groupBox1.Margin = new System.Windows.Forms.Padding(4);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Padding = new System.Windows.Forms.Padding(4);
-            this.groupBox1.Size = new System.Drawing.Size(1095, 357);
+            this.groupBox1.Size = new System.Drawing.Size(1095, 374);
             this.groupBox1.TabIndex = 45;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Pesquisa";
+            // 
+            // btnRelatorio
+            // 
+            this.btnRelatorio.Font = new System.Drawing.Font("MS Gothic", 14.25F, System.Drawing.FontStyle.Bold);
+            this.btnRelatorio.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.btnRelatorio.Location = new System.Drawing.Point(893, 327);
+            this.btnRelatorio.Margin = new System.Windows.Forms.Padding(4);
+            this.btnRelatorio.Name = "btnRelatorio";
+            this.btnRelatorio.Size = new System.Drawing.Size(195, 36);
+            this.btnRelatorio.TabIndex = 50;
+            this.btnRelatorio.Text = "Emitir Relatório";
+            this.btnRelatorio.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnRelatorio.UseVisualStyleBackColor = true;
+            this.btnRelatorio.Click += new System.EventHandler(this.EmitirRelatorio);
             // 
             // lstPagamentos
             // 
@@ -215,6 +231,11 @@
             // 
             this.clnValor.Text = "Valor";
             this.clnValor.Width = 180;
+            // 
+            // columnHeader1
+            // 
+            this.columnHeader1.Text = "Contas";
+            this.columnHeader1.Width = 182;
             // 
             // label6
             // 
@@ -278,11 +299,6 @@
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
-            // columnHeader1
-            // 
-            this.columnHeader1.Text = "Contas";
-            this.columnHeader1.Width = 182;
-            // 
             // FRM_Pesquisar
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -333,5 +349,6 @@
         private System.Windows.Forms.ColumnHeader clnNome;
         private System.Windows.Forms.ColumnHeader clnValor;
         private System.Windows.Forms.ColumnHeader columnHeader1;
+        private System.Windows.Forms.Button btnRelatorio;
     }
 }

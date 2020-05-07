@@ -9,7 +9,10 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using ContasRep.Classes;
 using MySql.Data.MySqlClient;
-
+using System.IO;
+using iTextSharp;
+using iTextSharp.text;
+using iTextSharp.text.pdf;
 
 namespace ContasRep
 {
@@ -20,9 +23,14 @@ namespace ContasRep
             InitializeComponent();
             Parametros();
             CarregarDatas();
+            btnRelatorio.Visible = false;
         }
 
         private static FRM_Pesquisar instance;
+
+        public static Document documento;
+
+        public int id_data = 0;
 
         public void CarregarDatas()
         {
@@ -80,6 +88,7 @@ namespace ContasRep
             sql_dr.Close();
             clsData objData = new clsData();
             int idData = objData.GetIdByData(Convert.ToInt32(cmbMes.Text), Convert.ToInt32(cmbAno.Text));
+            id_data = idData;
             clsContas objContas = new clsContas();
             sql_dr = objContas.GetContasByFiltro("where id_data = " + idData);
             if (sql_dr.Read())
@@ -111,6 +120,7 @@ namespace ContasRep
                     item.SubItems.Add(sql_dr["contas"].ToString());
                     lstPagamentos.Items.Add(item);
                 }
+                btnRelatorio.Visible = true;
             }
             else
             {
@@ -120,6 +130,7 @@ namespace ContasRep
 
         private void button1_Click(object sender, EventArgs e)
         {
+            lstPagamentos.Items.Clear();
             if (!Equals(cmbAno.Text, "") && !Equals(cmbMes.Text, ""))
             {
                 CarregarValores();
@@ -134,6 +145,70 @@ namespace ContasRep
         {
             FRM_AddAno form_add = new FRM_AddAno();
             form_add.ShowDialog();
+        }
+
+        private void GerarRelatorio()
+        {
+            Document doc = new Document(PageSize.A4);
+            doc.SetMargins(40, 40, 40, 80);
+            doc.AddCreationDate();
+            string diretorio = @Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\Relatório- " + cmbMes.Text + "." + cmbAno.Text + ".pdf";
+            PdfWriter writer = PdfWriter.GetInstance(doc, new FileStream(diretorio, FileMode.Create));
+            doc.Open();
+            string dados = "";
+            Paragraph title = new Paragraph(dados);
+            title.Font = new iTextSharp.text.Font(iTextSharp.text.Font.NORMAL, 14, (int)System.Drawing.FontStyle.Bold);
+            title.Alignment = Element.ALIGN_CENTER;
+            title.Add("Relatório Mensal - " + cmbMes.Text + "/" + cmbAno.Text);
+            doc.Add(title);
+            Paragraph txtValores = new Paragraph(dados);
+            txtValores.Font = new iTextSharp.text.Font(iTextSharp.text.Font.NORMAL, 10);
+            txtValores.Alignment = Element.ALIGN_LEFT;
+            Paragraph finalizacao = new Paragraph(dados);
+            finalizacao.Font = new iTextSharp.text.Font(iTextSharp.text.Font.NORMAL, 12, (int)System.Drawing.FontStyle.Italic);
+            finalizacao.Alignment = Element.ALIGN_JUSTIFIED;
+            title.Clear();
+            title.Add("\n\n+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-\n\nContas Cadastradas no Mês:\n");
+            doc.Add(title);
+            clsContas objContas = new clsContas();
+            MySqlDataReader sqldr =  objContas.GetContasByFiltro("where id_data = " + id_data);
+            int j = 1;
+            while (sqldr.Read())
+            {
+                txtValores.Add("\nConta nº " + j++ + "\nNome da Conta: " + sqldr["nome_conta"].ToString() + "\nValor: R$" + sqldr["valor_conta"].ToString());
+                txtValores.Add("_____________________________________________________________________________________");
+            }
+            doc.Add(txtValores);
+            finalizacao.Add("Valor Total: " + txtTotal.Text);
+            doc.Add(finalizacao);
+            finalizacao.Clear();
+            title.Clear();
+            title.Add("\n\n+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-\n\nPagamentos Lançados:\n");
+            doc.Add(title);
+            txtValores.Clear();
+            for (int i = 0; i < lstPagamentos.Items.Count; i++)
+            {
+                txtValores.Add("\nPagamento nº " + (i + 1) + "\nMorador: " + lstPagamentos.Items[i].Text + "\nValor: " + lstPagamentos.Items[i].SubItems[1].Text + "\nContas Pagas: " + lstPagamentos.Items[i].SubItems[2].Text.Replace('|', ','));
+                txtValores.Add("_____________________________________________________________________________________");
+            }
+            doc.Add(txtValores);
+            finalizacao.Add("Valor Total Recebido: " + txtRecebido.Text);
+            doc.Add(finalizacao);
+            doc.Close();
+            documento = doc;
+        }
+
+        private void EmitirRelatorio(object sender, EventArgs e)
+        {
+            try
+            {
+                GerarRelatorio();
+                MessageBox.Show("O documento foi salvo em sua pasta 'Documentos'.", "Êxito");
+            }
+            catch
+            {
+                MessageBox.Show("Não foi possível exportar!", "ERRO");
+            }
         }
     }
 }

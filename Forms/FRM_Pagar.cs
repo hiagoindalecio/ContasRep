@@ -257,6 +257,7 @@ namespace ContasRep
             lstGeral.Items.Add(item);
             cmbMoradores.Items.Remove(cmbMoradores.Text);
             lstIndividual.Items.Clear();
+            ckbSelectAll.Visible = false;
         }
 
         /*public void Finalizar()
