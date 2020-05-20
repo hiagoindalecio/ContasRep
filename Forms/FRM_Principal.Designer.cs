@@ -31,7 +31,6 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FRM_Principal));
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.mPesquisar = new System.Windows.Forms.ToolStripMenuItem();
-            this.mCalcular = new System.Windows.Forms.ToolStripMenuItem();
             this.mMoradores = new System.Windows.Forms.ToolStripMenuItem();
             this.mContas = new System.Windows.Forms.ToolStripMenuItem();
             this.mPagar = new System.Windows.Forms.ToolStripMenuItem();
@@ -46,7 +45,6 @@
             this.menuStrip1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.mPesquisar,
-            this.mCalcular,
             this.mMoradores,
             this.mContas,
             this.mPagar});
@@ -67,19 +65,6 @@
             this.mPesquisar.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
             this.mPesquisar.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
             this.mPesquisar.Click += new System.EventHandler(this.mFechamento_Click);
-            // 
-            // mCalcular
-            // 
-            this.mCalcular.Font = new System.Drawing.Font("MS Gothic", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.mCalcular.Image = global::ContasRep.Properties.Resources.iconfinder_AccountingAuditor_4_2175890;
-            this.mCalcular.ImageScaling = System.Windows.Forms.ToolStripItemImageScaling.None;
-            this.mCalcular.Name = "mCalcular";
-            this.mCalcular.Size = new System.Drawing.Size(83, 76);
-            this.mCalcular.Text = "Calcular";
-            this.mCalcular.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
-            this.mCalcular.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageAboveText;
-            this.mCalcular.Visible = false;
-            this.mCalcular.Click += new System.EventHandler(this.mCalcular_Click);
             // 
             // mMoradores
             // 
@@ -143,7 +128,6 @@
 
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStripMenuItem mPesquisar;
-        private System.Windows.Forms.ToolStripMenuItem mCalcular;
         private System.Windows.Forms.ToolStripMenuItem mMoradores;
         private System.ComponentModel.BackgroundWorker backgroundWorker1;
         private System.Windows.Forms.ToolStripMenuItem mContas;

@@ -83,6 +83,46 @@ namespace ContasRep.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap HelloKittyBrighness {
+            get {
+                object obj = ResourceManager.GetObject("HelloKittyBrighness", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap HelloKittyDance {
+            get {
+                object obj = ResourceManager.GetObject("HelloKittyDance", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap HelloKittyFriends {
+            get {
+                object obj = ResourceManager.GetObject("HelloKittyFriends", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap HelloKittyPay {
+            get {
+                object obj = ResourceManager.GetObject("HelloKittyPay", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap iconfinder_11_Calendar_date_month_3104956 {
             get {
                 object obj = ResourceManager.GetObject("iconfinder_11_Calendar_date_month_3104956", resourceCulture);
@@ -116,6 +156,16 @@ namespace ContasRep.Properties {
         internal static System.Drawing.Bitmap pagar__1_ {
             get {
                 object obj = ResourceManager.GetObject("pagar (1)", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap PinkGun {
+            get {
+                object obj = ResourceManager.GetObject("PinkGun", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

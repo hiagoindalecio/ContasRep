@@ -229,6 +229,11 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Aha-Soft-Business-Toolbar-Payment.ico" />
+    <None Include="Resources\PinkGun.gif" />
+    <None Include="Resources\HelloKittyPay.gif" />
+    <None Include="Resources\HelloKittyFriends.gif" />
+    <None Include="Resources\HelloKittyBrighness.gif" />
+    <None Include="Resources\HelloKittyDance.gif" />
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Service References\" />

@@ -30,6 +30,9 @@
         {
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.ckbSelectAll = new System.Windows.Forms.CheckBox();
+            this.lstIndividual = new System.Windows.Forms.ListView();
+            this.columnHeader5 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader6 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.label4 = new System.Windows.Forms.Label();
             this.lstContas = new System.Windows.Forms.ListView();
             this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -48,16 +51,16 @@
             this.lstGeral = new System.Windows.Forms.ListView();
             this.clnNome = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.clnValor = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.label1 = new System.Windows.Forms.Label();
-            this.lstIndividual = new System.Windows.Forms.ListView();
-            this.columnHeader5 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader6 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader7 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.label1 = new System.Windows.Forms.Label();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.groupBox1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.pictureBox1);
             this.groupBox1.Controls.Add(this.ckbSelectAll);
             this.groupBox1.Controls.Add(this.lstIndividual);
             this.groupBox1.Controls.Add(this.label4);
@@ -93,6 +96,31 @@
             this.ckbSelectAll.Text = "Selecionar Tudo";
             this.ckbSelectAll.UseVisualStyleBackColor = true;
             this.ckbSelectAll.CheckedChanged += new System.EventHandler(this.SelecionarTudo);
+            // 
+            // lstIndividual
+            // 
+            this.lstIndividual.CheckBoxes = true;
+            this.lstIndividual.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.columnHeader5,
+            this.columnHeader6});
+            this.lstIndividual.Font = new System.Drawing.Font("MS Gothic", 12F);
+            this.lstIndividual.ImeMode = System.Windows.Forms.ImeMode.Disable;
+            this.lstIndividual.Location = new System.Drawing.Point(7, 96);
+            this.lstIndividual.Name = "lstIndividual";
+            this.lstIndividual.Size = new System.Drawing.Size(592, 280);
+            this.lstIndividual.TabIndex = 62;
+            this.lstIndividual.UseCompatibleStateImageBehavior = false;
+            this.lstIndividual.View = System.Windows.Forms.View.Details;
+            // 
+            // columnHeader5
+            // 
+            this.columnHeader5.Text = "Nome";
+            this.columnHeader5.Width = 338;
+            // 
+            // columnHeader6
+            // 
+            this.columnHeader6.Text = "Valor";
+            this.columnHeader6.Width = 250;
             // 
             // label4
             // 
@@ -279,6 +307,11 @@
             this.clnValor.Text = "Valor Final";
             this.clnValor.Width = 154;
             // 
+            // columnHeader7
+            // 
+            this.columnHeader7.Text = "Contas";
+            this.columnHeader7.Width = 192;
+            // 
             // label1
             // 
             this.label1.AutoSize = true;
@@ -289,35 +322,15 @@
             this.label1.TabIndex = 47;
             this.label1.Text = "Pagar";
             // 
-            // lstIndividual
+            // pictureBox1
             // 
-            this.lstIndividual.CheckBoxes = true;
-            this.lstIndividual.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.columnHeader5,
-            this.columnHeader6});
-            this.lstIndividual.Font = new System.Drawing.Font("MS Gothic", 12F);
-            this.lstIndividual.ImeMode = System.Windows.Forms.ImeMode.Disable;
-            this.lstIndividual.Location = new System.Drawing.Point(7, 96);
-            this.lstIndividual.Name = "lstIndividual";
-            this.lstIndividual.Size = new System.Drawing.Size(592, 280);
-            this.lstIndividual.TabIndex = 62;
-            this.lstIndividual.UseCompatibleStateImageBehavior = false;
-            this.lstIndividual.View = System.Windows.Forms.View.Details;
-            // 
-            // columnHeader5
-            // 
-            this.columnHeader5.Text = "Nome";
-            this.columnHeader5.Width = 338;
-            // 
-            // columnHeader6
-            // 
-            this.columnHeader6.Text = "Valor";
-            this.columnHeader6.Width = 250;
-            // 
-            // columnHeader7
-            // 
-            this.columnHeader7.Text = "Contas";
-            this.columnHeader7.Width = 192;
+            this.pictureBox1.Image = global::ContasRep.Properties.Resources.HelloKittyPay;
+            this.pictureBox1.Location = new System.Drawing.Point(970, 382);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(177, 137);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureBox1.TabIndex = 63;
+            this.pictureBox1.TabStop = false;
             // 
             // FRM_Pagar
             // 
@@ -335,6 +348,7 @@
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -367,5 +381,6 @@
         internal System.Windows.Forms.ColumnHeader columnHeader5;
         internal System.Windows.Forms.ColumnHeader columnHeader6;
         private System.Windows.Forms.ColumnHeader columnHeader7;
+        private System.Windows.Forms.PictureBox pictureBox1;
     }
 }
